@@ -1,6 +1,6 @@
 import java.io.File
 
-fun readInput(name: String) = File("src", "$name.txt").readLines()
+fun readInput(name: String) = File("input", "$name.txt").readLines()
 
 infix fun Int.toward(to: Int): IntProgression {
     val step = if (this > to) -1 else 1
