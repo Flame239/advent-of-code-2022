@@ -24,3 +24,5 @@ fun <T> List<T>.orderedPairs(): Sequence<Pair<T, T>> = sequence {
 }
 
 fun ClosedRange<Int>.intersect(other: ClosedRange<Int>) = !(start > other.endInclusive || endInclusive < other.start)
+
+//infix fun Int.mod(other: Int): Int = this.mod(other)
