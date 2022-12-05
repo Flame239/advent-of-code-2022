@@ -2,8 +2,7 @@ private fun input(): Stacks {
     val lines = readInput("Day05")
     val stacksInput = lines.takeWhile { it.isNotEmpty() }
     val stacksCount = (stacksInput.last().length + 2) / 4
-    val stacks = ArrayList<ArrayDeque<Char>>()
-    repeat(stacksCount) { stacks.add(ArrayDeque()) }
+    val stacks = List(stacksCount) { ArrayDeque<Char>() }
     stacksInput.forEach {
         for (i in 0 until stacksCount) {
             val charInd = 4 * i + 2
