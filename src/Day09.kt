@@ -16,10 +16,10 @@ private fun uniqueTailPositions(moves: List<Pair<String, Int>>, knotsCount: Int)
     moves.forEach { m ->
         repeat(m.second) {
             when (m.first) {
-                "R" -> knots[0].x += 1
-                "L" -> knots[0].x -= 1
-                "U" -> knots[0].y += 1
-                "D" -> knots[0].y -= 1
+                "R" -> knots[0].x++
+                "L" -> knots[0].x--
+                "U" -> knots[0].y++
+                "D" -> knots[0].y--
             }
             for (i in 0 until knots.lastIndex) {
                 knots[i + 1].moveTo(knots[i])
