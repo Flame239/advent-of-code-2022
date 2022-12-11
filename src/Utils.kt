@@ -26,3 +26,18 @@ fun <T> List<T>.orderedPairs(): Sequence<Pair<T, T>> = sequence {
 fun ClosedRange<Int>.intersect(other: ClosedRange<Int>) = !(start > other.endInclusive || endInclusive < other.start)
 
 fun ClosedRange<Int>.contains(other: ClosedRange<Int>) = other.start >= start && other.endInclusive <= endInclusive
+
+fun gcd(a: Int, b: Int): Int {
+    if (b == 0) return a
+    return gcd(b, a % b)
+}
+
+fun lcm(a: Int, b: Int): Int {
+    return a / gcd(a, b) * b
+}
+
+fun lcmList(input: List<Int>): Int {
+    return input.reduce { a, b -> lcm(a, b) }
+}
+
+fun List<Int>.lcm() = lcmList(this)
