@@ -1,4 +1,7 @@
 import java.io.File
+import kotlin.math.abs
+import kotlin.math.min
+import kotlin.system.measureNanoTime
 
 fun readInput(name: String) = File("input", "$name.txt").readLines()
 
@@ -27,6 +30,8 @@ fun ClosedRange<Int>.intersect(other: ClosedRange<Int>) = !(start > other.endInc
 
 fun ClosedRange<Int>.contains(other: ClosedRange<Int>) = other.start >= start && other.endInclusive <= endInclusive
 
+fun ClosedRange<Int>.count() = endInclusive - start + 1
+
 fun gcd(a: Int, b: Int): Int {
     if (b == 0) return a
     return gcd(b, a % b)
@@ -41,3 +46,27 @@ fun lcmList(input: List<Int>): Int {
 }
 
 fun List<Int>.lcm() = lcmList(this)
+
+data class C(val x: Int, val y: Int) {
+    override fun toString(): String {
+        return "($x;$y)"
+    }
+
+    fun manhattan(other: C): Int {
+        return abs(x - other.x) + abs(y - other.y)
+    }
+}
+
+fun parseC(s: String): C = s.split(", ").map { it.substring(2) }.map { it.toInt() }.let { (x, y) -> C(x, y) }
+
+fun measure(block: () -> Any) {
+    var min: Long = Long.MAX_VALUE
+    var result: Any = ""
+    repeat(100) {
+        measureNanoTime {
+            result = block()
+        }.also { min = min(min, it) }
+    }
+    println(result)
+    println("Exec time: " + min / 1000 + " μs")
+}

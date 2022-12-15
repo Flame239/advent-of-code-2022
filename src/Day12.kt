@@ -105,5 +105,3 @@ fun main() {
     println(part1(map()))
     println(part2(map()))
 }
-
-data class C(val x: Int, val y: Int)
