@@ -84,12 +84,7 @@ private fun part2(sensors: List<Sensor>): Long {
     return if (!withinRange(C(x, y), sensors)) x * 4000000L + y else -1
 }
 
-private fun withinRange(c: C, sensors: List<Sensor>): Boolean {
-    sensors.forEach { s ->
-        if (c.manhattan(s.sensor) <= s.dist) return true
-    }
-    return false
-}
+private fun withinRange(c: C, sensors: List<Sensor>): Boolean = sensors.any { (c.manhattan(it.sensor) <= it.dist) }
 
 fun main() {
     measure { part1(pos()) }
