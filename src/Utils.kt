@@ -56,6 +56,9 @@ data class C(val x: Int, val y: Int) {
     fun manhattan(other: C): Int {
         return abs(x - other.x) + abs(y - other.y)
     }
+
+    fun shiftY(diff: Int): C = C(x, y + diff)
+    fun shiftX(diff: Int): C = C(x + diff, y)
 }
 
 fun parseC(s: String): C = s.split(", ").map { it.substring(2) }.map { it.toInt() }.let { (x, y) -> C(x, y) }
