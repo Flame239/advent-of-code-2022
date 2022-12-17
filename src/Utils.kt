@@ -1,5 +1,6 @@
 import java.io.File
 import kotlin.math.abs
+import kotlin.math.max
 import kotlin.math.min
 import kotlin.system.measureNanoTime
 
@@ -62,11 +63,15 @@ fun parseC(s: String): C = s.split(", ").map { it.substring(2) }.map { it.toInt(
 fun measure(block: () -> Any) {
     var min: Long = Long.MAX_VALUE
     var result: Any = ""
-    repeat(100) {
+    repeat(1) {
         measureNanoTime {
             result = block()
         }.also { min = min(min, it) }
     }
     println(result)
-    println("Exec time: " + min / 1000 + " μs")
+    println("Exec time: " + min / 1000000 + " ms")
+}
+
+fun Int.getMax(other: Int): Int {
+    return max(this, other)
 }
