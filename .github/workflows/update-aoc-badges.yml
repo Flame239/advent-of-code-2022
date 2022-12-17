@@ -16,12 +16,12 @@ jobs:
 
       - uses: joblo2213/aoc-badges-action@v3
         with:
-          userid: 2250663                          # your user id, see setup on how to obtain
+          userid: 1536416                          # your user id, see setup on how to obtain
           session: ${{ secrets.AOC_SESSION }}    # secret containing session code, see setup on how to obtain
           year: 2022                                                                                     # The year for which stats should be retrieve
+          leaderboard: 'https://adventofcode.com/2022/leaderboard/private/view/2250663.json'               # The url of the leaderboard from witch the data is fetched. Typically your private leaderboard.
 
       #         Optional inputs:
-      #         leaderboard: 'https://adventofcode.com/2020/leaderboard/private/view/00000.json'               # The url of the leaderboard from witch the data is fetched. Typically your private leaderboard.
       #         file: 'README.md'                                                                              # The file that contains the badges
       #         dayRegex: '(?<=https:\/\/img\.shields\.io\/badge\/day%20📅-)[0-9]+(?=-blue)'                   # Regular expression that finds the content of the day badge in your file.
       #         starsRegex: '(?<=https:\/\/img\.shields\.io\/badge\/stars%20⭐-)[0-9]+(?=-yellow)'             # Regular expression that finds the content of the stars badge in your file.
