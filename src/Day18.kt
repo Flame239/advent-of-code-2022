@@ -20,8 +20,7 @@ private fun part2(pts: List<C3>): Int {
             for (z in zBounds) {
                 val p = C3(x, y, z)
                 if (ptsSet.contains(p) || trapped.contains(p)) continue
-                val isTrapped = checkTrapped(p, trapped, mutableSetOf())
-                markTrapped(p, isTrapped, trapped)
+                markTrapped(p, checkTrapped(p), trapped)
             }
         }
     }
@@ -38,22 +37,33 @@ private fun withinBounds(p: C3) = xBounds.contains(p.x) && yBounds.contains(p.y)
 fun getAdjacent(p: C3): List<C3> =
     listOf(p.shiftX(1), p.shiftX(-1), p.shiftY(1), p.shiftY(-1), p.shiftZ(1), p.shiftZ(-1))
 
-fun checkTrapped(p: C3, trapped: HashMap<C3, Boolean>, current: MutableSet<C3>): Boolean {
-    if (!withinBounds(p)) return false
-    current.add(p)
-
-    getAdjacent(p)
-        .filter { !ptsSet.contains(it) }
-        .forEach { if (!current.contains(it) && !checkTrapped(it, trapped, current)) return false }
+fun checkTrapped(start: C3): Boolean {
+    val visited = HashSet<C3>()
+    visited.add(start)
+    val q = ArrayDeque<C3>()
+    q.add(start)
+    while (q.isNotEmpty()) {
+        val cur = q.removeFirst()
+        if (!withinBounds(cur)) return false
+        getAdjacent(cur).filter { !ptsSet.contains(it) && !visited.contains(it) }.forEach { w ->
+            visited.add(w)
+            q.add(w)
+        }
+    }
     return true
 }
 
-fun markTrapped(p: C3, isTrapped: Boolean, trapped: HashMap<C3, Boolean>) {
-    trapped[p] = isTrapped
-    if (!(withinBounds(p))) return
-    getAdjacent(p)
-        .filter { !ptsSet.contains(it) }
-        .forEach { if (!trapped.contains(it)) markTrapped(it, isTrapped, trapped) }
+fun markTrapped(start: C3, isTrapped: Boolean, trapped: HashMap<C3, Boolean>) {
+    val q = ArrayDeque<C3>()
+    trapped[start] = isTrapped
+    q.add(start)
+    while (q.isNotEmpty()) {
+        val cur = q.removeFirst()
+        getAdjacent(cur).filter { withinBounds(it) && !ptsSet.contains(it) && !trapped.contains(it) }.forEach { w ->
+            trapped[w] = isTrapped
+            q.add(w)
+        }
+    }
 }
 
 fun main() {
