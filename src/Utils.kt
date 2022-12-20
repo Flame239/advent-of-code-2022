@@ -63,6 +63,9 @@ data class C(val x: Int, val y: Int) {
 
 fun parseC(s: String): C = s.split(", ").map { it.substring(2) }.map { it.toInt() }.let { (x, y) -> C(x, y) }
 
+private val red = "\u001b[0;31m"
+private val green = "\u001b[32m"
+private val reset = "\u001b[0m"
 fun measure(block: () -> Any) {
     var min: Long = Long.MAX_VALUE
     var result: Any = ""
@@ -71,10 +74,16 @@ fun measure(block: () -> Any) {
             result = block()
         }.also { min = min(min, it) }
     }
-    println(result)
-    println("Exec time: " + min / 1000000 + " ms")
+    println(red + result + reset)
+    println(green + "⏳ " + min / 1000000 + " ms" + reset)
 }
 
 fun Int.getMax(other: Int): Int {
     return max(this, other)
+}
+
+fun <T> MutableList<T>.swap(i: Int, j: Int) {
+    val tmp = this[i]
+    this[i] = this[j]
+    this[j] = tmp
 }

@@ -11,6 +11,6 @@ private fun part2(input: List<String>): Int {
 }
 
 fun main() {
-    println(part1(input()))
-    println(part2(input()))
+    measure { part1(input()) }
+    measure { part2(input()) }
 }
