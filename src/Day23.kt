@@ -41,23 +41,16 @@ fun moveElves(g: Array<BooleanArray>, part1: Boolean): Int {
             val m = moves[0]
             g[m.from.i][m.from.j] = false
             g[m.to.i][m.to.j] = true
-
             elves.remove(m.from)
             elves.add(m.to)
         }
         d++
     }
-    return if (part1) findArea(elves, g) else -1
+    return if (part1) findArea(elves) else -1
 }
 
-private fun findArea(elves: HashSet<CC>, g: Array<BooleanArray>): Int {
-    var count = 0
-    for (i in elves.minOf { it.i }..elves.maxOf { it.i }) {
-        for (j in elves.minOf { it.j }..elves.maxOf { it.j }) {
-            if (!g[i][j]) count++
-        }
-    }
-    return count
+private fun findArea(e: HashSet<CC>): Int {
+    return (e.maxOf(CC::i) - e.minOf(CC::i) + 1) * (e.maxOf(CC::j) - e.minOf(CC::j) + 1) - e.size
 }
 
 
