@@ -59,16 +59,6 @@ fun main() {
     measure { moveElves(input(), false) }
 }
 
-private data class CC(val i: Int, val j: Int) {
-    fun move(d: Int): CC {
-        return when (d) {
-            0 -> CC(i - 1, j)
-            1 -> CC(i + 1, j)
-            2 -> CC(i, j - 1)
-            3 -> CC(i, j + 1)
-            else -> error("D")
-        }
-    }
-}
+
 
 private data class Move(val from: CC, val to: CC)
