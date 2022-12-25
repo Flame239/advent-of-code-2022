@@ -42,6 +42,7 @@ private fun shouldVisit(map: List<String>, visited: HashMap<CC, BooleanArray>, p
     if (pVis[step % cycle]) return false
     pVis[step % cycle] = true
 
+    // IMPROVEMENT: pre-calculate all possible maps (there will be `cycle` of them)
     if (map[p.i][(p.j - 1 - step).mod(w - 2) + 1] == '>') return false
     if (map[p.i][(p.j - 1 + step).mod(w - 2) + 1] == '<') return false
     if (map[(p.i - 1 - step).mod(h - 2) + 1][p.j] == 'v') return false
